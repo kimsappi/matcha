@@ -3,10 +3,11 @@ CREATE TABLE IF NOT EXISTS users (
 	username VARCHAR(24) UNIQUE NOT NULL,
 	`password` CHAR(64) NOT NULL,
 	email VARCHAR(99) UNIQUE NOT NULL,
+	age INT DEFAULT NULL,
+	fame INT DEFAULT NULL,
 	gender INT DEFAULT 0,
 	target_genders INT DEFAULT 6,
 	biography VARCHAR(512) DEFAULT NULL,
-	tags VARCHAR(512) DEFAULT NULL,
 	photos VARCHAR(512) DEFAULT NULL,
 	email_confirmation_string VARCHAR(64),
 	forgot_password_string VARCHAR(64) DEFAULT NULL,
@@ -39,20 +40,29 @@ CREATE TABLE IF NOT EXISTS visits (
 	FOREIGN KEY (visitee) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS chats (
-	id INT UNSIGNED AUTO_INCREMENT,
-	chatter1 INT UNSIGNED NOT NULL,
-	chatter2 INT UNSIGNED NOT NULL,
-	PRIMARY KEY (chatter1, chatter2),
-	FOREIGN KEY (chatter1) REFERENCES users(id),
-	FOREIGN KEY (chatter2) REFERENCES users(id)
+CREATE TABLE IF NOT EXISTS messages (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	sender INT UNSIGNED NOT NULL,
+	recipient INT UNSIGNED NOT NULL,
+	content VARCHAR(512) NOT NULL,
+	FOREIGN KEY (sender) REFERENCES users(id),
+ 	FOREIGN KEY (recipient) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS chat_messages (
-	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	chat INT UNSIGNED,
-	chatter INT UNSIGNED NOT NULL,
-	message VARCHAR(512) NOT NULL,
-	FOREIGN KEY (chat) REFERENCES chats(id),
-	FOREIGN KEY (chatter) REFERENCES users(id)
-);
+-- CREATE TABLE IF NOT EXISTS chats (
+-- 	id INT UNSIGNED AUTO_INCREMENT,
+-- 	chatter1 INT UNSIGNED NOT NULL,
+-- 	chatter2 INT UNSIGNED NOT NULL,
+-- 	PRIMARY KEY (chatter1, chatter2),
+-- 	FOREIGN KEY (chatter1) REFERENCES users(id),
+-- 	FOREIGN KEY (chatter2) REFERENCES users(id)
+-- );
+
+-- CREATE TABLE IF NOT EXISTS messages (
+-- 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+-- 	chat INT UNSIGNED,
+-- 	chatter INT UNSIGNED NOT NULL,
+-- 	message VARCHAR(512) NOT NULL,
+-- 	FOREIGN KEY (chat) REFERENCES chats(id),
+-- 	FOREIGN KEY (chatter) REFERENCES users(id)
+-- );
