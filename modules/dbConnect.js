@@ -10,7 +10,7 @@ const pool = mysql.createPool({
 	connectionLimit: 5
 });
 
-dbconnection.on('connection', function(connection) {
+pool.on('connection', function(connection) {
 	connection.on('error', function (err) {
 		console.error(new Date(), 'DB error:', err.code, err.error);
 	});
