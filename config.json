@@ -4,5 +4,6 @@
 		"user": "dbuser",
 		"password": "123dbuser",
 		"database": "matcha"
-	}
+	},
+	"secret": "topz33kr17"
 }
