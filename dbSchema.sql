@@ -1,0 +1,58 @@
+CREATE TABLE IF NOT EXISTS users (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(24) UNIQUE NOT NULL,
+	`password` CHAR(64) NOT NULL,
+	email VARCHAR(99) UNIQUE NOT NULL,
+	gender INT DEFAULT 0,
+	target_genders INT DEFAULT 6,
+	biography VARCHAR(512) DEFAULT NULL,
+	tags VARCHAR(512) DEFAULT NULL,
+	photos VARCHAR(512) DEFAULT NULL,
+	email_confirmation_string VARCHAR(64),
+	forgot_password_string VARCHAR(64) DEFAULT NULL,
+	longtitude FLOAT DEFAULT NULL,
+	latitude FLOAT DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tags (
+	string VARCHAR(32) NOT NULL,
+	user INT UNSIGNED,
+	PRIMARY KEY (string, user),
+	FOREIGN KEY (user) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS likes (
+	liker INT UNSIGNED NOT NULL,
+	likee INT UNSIGNED NOT NULL,
+	is_match BOOLEAN DEFAULT FALSE,
+	PRIMARY KEY (liker, likee),
+	FOREIGN KEY (liker) REFERENCES users(id),
+	FOREIGN KEY (likee) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS visits (
+	visitor INT UNSIGNED NOT NULL,
+	visitee INT UNSIGNED NOT NULL,
+	`time` DATETIME NOT NULL,
+	PRIMARY KEY (visitor, visitee),
+	FOREIGN KEY (visitor) REFERENCES users(id),
+	FOREIGN KEY (visitee) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS chats (
+	id INT UNSIGNED AUTO_INCREMENT,
+	chatter1 INT UNSIGNED NOT NULL,
+	chatter2 INT UNSIGNED NOT NULL,
+	PRIMARY KEY (chatter1, chatter2),
+	FOREIGN KEY (chatter1) REFERENCES users(id),
+	FOREIGN KEY (chatter2) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS chat_messages (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	chat INT UNSIGNED,
+	chatter INT UNSIGNED NOT NULL,
+	message VARCHAR(512) NOT NULL,
+	FOREIGN KEY (chat) REFERENCES chats(id),
+	FOREIGN KEY (chatter) REFERENCES users(id)
+);
