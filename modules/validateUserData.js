@@ -13,7 +13,8 @@ const validatePassword = (password) => {
 };
 
 const validateUsername = (username) => {
-	return username.length > 4 && username.length < 17 && [/^[A-Za-z0-9]$/].test(username);		
+	// 4-16 characters, only alphas and numbers
+	return /^[A-Za-z0-9]{4,16}$/.test(username);		
 };
 
 const validateEmail = (email) => {
@@ -50,12 +51,36 @@ const validateUserData = (user) => {
 		if (!validateName(user.lastName))
 			userIsValid = false;
 	}
+
+	return userIsValid;
+};
+
+const validateRegistrationData = (user) => {
+	if (
+		!user.username || !user.email || !user.firstName || !user.firstName ||
+		!user.lastName || !user.password || !user.confirmPassword ||
+		user.password !== user.confirmPassword
+	)
+		return false;
+
+		console.log('username',validateUsername(user.username));
+		console.log('email',validateEmail(user.email));
+		console.log('password',validatePassword(user.password));
+		console.log('firstName',validateName(user.firstName));
+		console.log('lastName',validateName(user.lastName));
+
+	return (
+		validateUsername(user.username) && validateEmail(user.email) &&
+		validatePassword(user.password) && validateName(user.firstName) &&
+		validateName(user.lastName)
+	);
 };
 
 module.exports = {
 	validatePassword: validatePassword,
 	validateUsername: validateUsername,
 	validateEmail: validateEmail,
-	validateName = validateName,
-	validateUserData = validateUserData
+	validateName: validateName,
+	validateUserData: validateUserData,
+	validateRegistrationData
 };
