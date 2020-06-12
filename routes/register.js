@@ -26,23 +26,35 @@ router.post('/', (req, res, next) => {
 	else {
 		const query = ' \
 			INSERT INTO `users` SET \
-				username = ?, password = ?, email = ?, first_name = ?, last_name = ?; \
+				username = ?, password = ?, email = ?, first_name = ?, \
+				last_name = ?, email_confirmation_string = ?; \
 		';
+		const emailConfirmationString = crypto.createHash('sha256')
+			.update('req.body.email' + new Date()).digest('hex');
 		const userData = [
 			req.body.username,
 			hashPassword(req.body.username, req.body.password),
 			req.body.email,
 			req.body.firstName,
-			req.body.lastName
+			req.body.lastName,
+			emailConfirmationString
 		];
 
 		const preparedQuery = mysql.format(query, userData, true);
 		pool.query(preparedQuery,
 			(error, results, fields) => {
 				// Insert failed probably because of email/username clash
-				console.log('error',error);
-				console.log('results',results);
-				console.log('fields',fields);
+				if (error) {
+					console.log('error',error);
+					return res.render('register');
+				}
+				else {
+					req.body.session.user = {
+						id: results.insertId,
+						username: req.body.username
+					}
+					return res.render('index');
+				}
 			}
 		);
 	};
