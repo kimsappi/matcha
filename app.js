@@ -8,8 +8,7 @@ const config = require('./config.json');
 const pool = require('./modules/dbConnect');
 
 // Routes
-var indexRouter = require('./routes/index');
-var regRouter = require('./routes/register');
+var routes = require('./routes/routes');
 
 var app = express();
 
@@ -27,8 +26,7 @@ app.use(session({secret: config.secret}));
 // -----------------------------------------------------------------------------
 // Routes
 // -----------------------------------------------------------------------------
-app.use('/register', regRouter);
-app.use('/', indexRouter);
+app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

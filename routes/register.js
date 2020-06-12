@@ -1,22 +1,19 @@
-const express = require('express');
 const mysql = require('mysql');
 const {validateRegistrationData} = require('../modules/validateUserData');
 const pool = require('../modules/dbConnect');
 const hashPassword = require('../modules/hash');
 
-const router = express.Router();
-
 /* GET registration page */
-router.get('/', function (req, res, next) {
+const get = (req, res, next) => {
 	// User is already logged in
 	if (req.session.user)
 		return res.status(301).redirect('/');
 
 	res.render('register');
-});
+};
 
 /* POST to registration page (attempt to register new account) */
-router.post('/', (req, res, next) => {
+const post = (req, res, next) => {
 	// User is already logged in
 	if (req.session.user)
 		return res.status(301).redirect('/');
@@ -60,6 +57,9 @@ router.post('/', (req, res, next) => {
 	};
 
 	res.render('index');
-});
+};
 
-module.exports = router;
+module.exports = {
+	get,
+	post
+};
