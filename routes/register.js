@@ -46,10 +46,7 @@ const post = (req, res, next) => {
 					return res.render('register');
 				}
 				else {
-					req.body.session.user = {
-						id: results.insertId,
-						username: req.body.username
-					}
+					// TODO send email here
 					return res.render('index');
 				}
 			}
