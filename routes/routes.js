@@ -4,7 +4,8 @@ const express = require('express');
 const index = require('./index');
 const register = require('./register');
 const login = require('./login');
-const logout = require('./logout')
+const logout = require('./logout');
+const confirmEmail = require('./confirmEmail');
 
 const router = express.Router();
 
@@ -35,5 +36,10 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res, next) => {
 	logout.get(req, res, next);
 });
+
+// confirmEmail.js
+router.get('/confirmEmail', (req, res, next) => {
+	confirmEmail.get(req, res, next);
+})
 
 module.exports = router;

@@ -1,3 +1,6 @@
+# Email details and other secrets
+mailConfig.json
+
 # Logs
 logs
 *.log
