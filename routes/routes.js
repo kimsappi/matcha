@@ -4,6 +4,7 @@ const express = require('express');
 const index = require('./index');
 const register = require('./register');
 const login = require('./login');
+const logout = require('./logout')
 
 const router = express.Router();
 
@@ -28,6 +29,11 @@ router.get('/login', (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
 	login.post(req, res, next);
+});
+
+// logout.js
+router.get('/logout', (req, res, next) => {
+	logout.get(req, res, next);
 });
 
 module.exports = router;
