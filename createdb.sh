@@ -1,1 +1,1 @@
-mysql -u dbuser --password=123dbuser matcha < dbSchema.sql
+mysql -u dbuser --password=123dbuser < dbSchema.sql

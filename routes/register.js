@@ -1,7 +1,11 @@
 const mysql = require('mysql');
+const crypto = require('crypto');
+
 const {validateRegistrationData} = require('../modules/validateUserData');
 const pool = require('../modules/dbConnect');
 const hashPassword = require('../modules/hash');
+const sendEmail = require('../modules/mail');
+const getRootUrl = require('../modules/getRootUrl');
 
 /* GET registration page */
 const get = (req, res, next) => {
@@ -37,6 +41,14 @@ const post = (req, res, next) => {
 			emailConfirmationString
 		];
 
+		const rootUrl = getRootUrl(req);
+		const confirmationUrl = rootUrl + '?user=' + req.body.email + '&token=' + emailConfirmationString;
+
+		const emailContent = `
+<p>Thanks for registering to Matcha! To confirm your registration, click the following link:</p>
+<p><a href='${confirmationUrl}'>${confirmationUrl}</a></p>
+`;
+
 		const preparedQuery = mysql.format(query, userData, true);
 		pool.query(preparedQuery,
 			(error, results, fields) => {
@@ -46,14 +58,12 @@ const post = (req, res, next) => {
 					return res.render('register');
 				}
 				else {
-					// TODO send email here
+					sendEmail(req.body.email, 'Matcha | Confirm your email', emailContent);
 					return res.render('index');
 				}
 			}
 		);
 	};
-
-	res.render('index');
 };
 
 module.exports = {
