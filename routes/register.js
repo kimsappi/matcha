@@ -42,7 +42,7 @@ const post = (req, res, next) => {
 		];
 
 		const rootUrl = getRootUrl(req);
-		const confirmationUrl = rootUrl + '?user=' + req.body.email + '&token=' + emailConfirmationString;
+		const confirmationUrl = rootUrl + '/confirmEmail?user=' + req.body.email + '&token=' + emailConfirmationString;
 
 		const emailContent = `
 <p>Thanks for registering to Matcha! To confirm your registration, click the following link:</p>
@@ -58,7 +58,7 @@ const post = (req, res, next) => {
 					return res.render('register');
 				}
 				else {
-					sendEmail(req.body.email, 'Matcha | Confirm your email', emailContent);
+					sendEmail(req.body.email, 'Matcha | Confirm your email', emailContent, true);
 					return res.render('index');
 				}
 			}
