@@ -7,6 +7,7 @@ const login = require('./login');
 const logout = require('./logout');
 const confirmEmail = require('./confirmEmail');
 const forgotPassword = require('./forgotPassword');
+const resetPassword = require('./resetPassword');
 
 const router = express.Router();
 
@@ -50,6 +51,15 @@ router.get('/forgotPassword', (req, res, next) => {
 
 router.post('/forgotPassword', (req, res, next) => {
 	forgotPassword.post(req, res, next);
+});
+
+// resetPassword.js
+router.get('/resetPassword', (req, res, next) => {
+	resetPassword.get(req, res, next);
+});
+
+router.post('/resetPassword', (req, res, next) => {
+	resetPassword.post(req, res, next);
 });
 
 module.exports = router;
