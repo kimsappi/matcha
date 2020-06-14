@@ -20,10 +20,10 @@ Hive webdev project: dating site
 - [ ] No SQL injection
 
 ## User account features
-- [ ] Registration must ask for email, username, last name, first name, password (complex)
-- [ ] Registration must be confirmed via an emailed unique link
-- [ ] Login with **username** and password
-- [ ] 'Forgot password'
+- [x] Registration must ask for email, username, last name, first name, password (complex)
+- [x] Registration must be confirmed via an emailed unique link
+- [x] Login with **username** and password
+- [x] 'Forgot password'
 - [ ] Ability to log out with 1 click from any page
 
 ## Profile features

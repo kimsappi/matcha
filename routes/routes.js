@@ -6,6 +6,7 @@ const register = require('./register');
 const login = require('./login');
 const logout = require('./logout');
 const confirmEmail = require('./confirmEmail');
+const forgotPassword = require('./forgotPassword');
 
 const router = express.Router();
 
@@ -40,6 +41,15 @@ router.get('/logout', (req, res, next) => {
 // confirmEmail.js
 router.get('/confirmEmail', (req, res, next) => {
 	confirmEmail.get(req, res, next);
-})
+});
+
+// forgotPassword.js
+router.get('/forgotPassword', (req, res, next) => {
+	forgotPassword.get(req, res, next);
+});
+
+router.post('/forgotPassword', (req, res, next) => {
+	forgotPassword.post(req, res, next);
+});
 
 module.exports = router;
