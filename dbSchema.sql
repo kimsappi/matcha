@@ -20,7 +20,8 @@ CREATE TABLE IF NOT EXISTS users (
 	email_confirmation_string VARCHAR(64),
 	forgot_password_string VARCHAR(64) DEFAULT NULL,
 	longtitude FLOAT DEFAULT NULL,
-	latitude FLOAT DEFAULT NULL
+	latitude FLOAT DEFAULT NULL,
+	last_login DATETIME DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS tags (

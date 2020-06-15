@@ -19,14 +19,10 @@ const post = (req, res, next) => {
 	if (req.session.user || !req.body.user || !req.body.token || !req.body.password || !req.body.confirmPassword)
 		return res.status(301).redirect('/');
 
-		
-	console.log('pw:' +  req.body.password + ' validate:' + validatePassword(req.body.password));
 	// Passwords don't match or entered password is not a valid password
 	if (req.body.password !== req.body.confirmPassword || !validatePassword(req.body.password))
 		return res.status(301).redirect('/resetPassword?user=' + req.body.user + '&token=' + req.body.token);
 
-		
-	console.log('xd');
 	const query = `SELECT * FROM users WHERE forgot_password_string = ?;`;
 	const preparedQuery = mysql.format(query, [req.body.token]);
 	pool.query(preparedQuery, (error, result) => findAccount(error, result, req.body.user, req.body.password, res));
@@ -36,8 +32,6 @@ const findAccount = (error, results, email, password, res) => {
 	if (error || !results) {
 		return res.status(301).redirect('/');
 	}
-
-	console.log('xd');
 
 	let matchingAccount = null;
 
@@ -52,8 +46,8 @@ const findAccount = (error, results, email, password, res) => {
 	const query = `
 	UPDATE users
 		SET \`password\` = ?, forgot_password_string = NULL
-		WHERE id = ${matchingAccount.id};`;
-	const formattedQuery = mysql.format(query, [hashPassword(matchingAccount.username, password)]);
+		WHERE id = ?;`;
+	const formattedQuery = mysql.format(query, [hashPassword(matchingAccount.username, password), matchingAccount.id]);
 	pool.query(formattedQuery);
 	return res.status(301).redirect('/login');
 };

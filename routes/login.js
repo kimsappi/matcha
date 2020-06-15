@@ -1,7 +1,7 @@
 const mysql = require('mysql');
-const {validateRegistrationData} = require('../modules/validateUserData');
 const pool = require('../modules/dbConnect');
 const hashPassword = require('../modules/hash');
+const mysqlDatetime = require('../modules/mysqlDatetime');
 
 const get = (req, res, next) => {
 	// User is already logged in
@@ -36,6 +36,7 @@ const post = (req, res, next) => {
 				id: results[0].id,
 				username: results[0].username
 			};
+			pool.query(`UPDATE users SET last_login = '${mysqlDatetime(new Date())}' WHERE id = ${results[0].id};`);
 			return res.status(301).redirect('/');
 		}
 		// Email address is not confirmed
