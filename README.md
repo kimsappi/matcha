@@ -33,7 +33,7 @@ Hive webdev project: dating site
 * - [ ] Biography
 * - [ ] Interests with hashtags ('\#cycling')
 * - [ ] Max 5 pictures
-- [ ] All information above must be modifiable
+- [ ] All information above must be modifiable (as well as first and last name and email)
 - [ ] User must be able to see who has checked their profile and who 'liked' them
 - [ ] Users must have a public 'fame rating'
 - [ ] User's location must be established either through GPS/similar or IP
