@@ -1,18 +1,43 @@
 extends layout
 
 block content
-	h1 Register
-	form(action="/register", method="post")
-		label(for="username") Username
-		input(type="text", name="username")
+	h1 My profile
+	form(action="/myProfile", method="post")
+
 		label(for="email") Email
 		input(type="email", name="email")
+
 		label(for="firstName") First name
 		input(type="text", name="firstName")
+
 		label(for="lastName") Last name
 		input(type="text", name="lastName")
-		label(for="password") Password
-		input(type="password", name="password")
-		label(for="confirmPassword") Confirm password
-		input(type="password", name="confirmPassword")
+
+		div I am a...
+		label Man
+			input(type="radio", name="gender", value="2" checked=userData.gender == 2)
+		label Woman
+			input(type="radio", name="gender", value="3" checked=userData.gender == 3)
+		
+		div Looking for
+		label Men
+			input(type="radio", name="gender", value="2" checked=userData.target_genders == 2)
+		label Both
+			input(type="radio", name="gender", value="2" checked=userData.target_genders == 6)
+		label Woman
+			input(type="radio", name="gender", value="3" checked=userData.target_genders == 3)
+
 		input(type="submit", value="Submit")
+
+//- label(for="gender") I am a...
+		select(name="gender")
+			if !userData.gender
+				option(value="0") Gender
+			option(value="2") Man
+			option(value="3") Woman
+
+	label(for="gender") Looking for...
+		select(name="target")
+			option(value="2") Men
+			option(value="3") Women
+			option(value="6") Both

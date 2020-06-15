@@ -37,7 +37,7 @@ const post = (req, res, next) => {
 				username: results[0].username
 			};
 			pool.query(`UPDATE users SET last_login = '${mysqlDatetime(new Date())}' WHERE id = ${results[0].id};`);
-			return res.status(301).redirect('/');
+			return res.status(301).redirect('/myProfile');
 		}
 		// Email address is not confirmed
 		else if (results) {
