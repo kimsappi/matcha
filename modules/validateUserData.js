@@ -28,6 +28,11 @@ const validateName = (name) => {
 	return re.test(name);
 };
 
+const validateGender = (gender, target = false) => {
+	// Non-strict comparison intended because they will often be strings
+	return gender == 2 || gender == 3 || (target && gender == 6);
+};
+
 const validateUserData = (user) => {
 	let userIsValid = true;
 
@@ -76,11 +81,26 @@ const validateRegistrationData = (user) => {
 	);
 };
 
+const validateMyProfileData = user => {
+	// Form is not filled
+	if (!user.email || !user.firstName || !user.lastName || 
+		!user.gender || !user.target
+	)
+		return false;
+	
+	return (validateEmail(user.email) && validateName(user.firstName) &&
+		validateName(user.lastName) && validateGender(user.gender, false) &&
+		validateGender(user.target, true)
+	);
+};
+
 module.exports = {
 	validatePassword: validatePassword,
 	validateUsername: validateUsername,
 	validateEmail: validateEmail,
 	validateName: validateName,
 	validateUserData: validateUserData,
-	validateRegistrationData
+	validateRegistrationData,
+	validateMyProfileData,
+	validateGender
 };
