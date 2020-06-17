@@ -28,10 +28,10 @@ Hive webdev project: dating site
 
 ## Profile features
 - [ ] After logging in, user can provide:
-* - [ ] Gender
-* - [ ] Sexual preferences (if none provided: bisexual)
-* - [ ] Biography
-* - [ ] Interests with hashtags ('\#cycling')
+* - [x] Gender
+* - [x] Sexual preferences (if none provided: bisexual)
+* - [x] Biography
+* - [x] Interests with hashtags ('\#cycling')
 * - [ ] Max 5 pictures
 - [ ] All information above must be modifiable (as well as first and last name and email)
 - [ ] User must be able to see who has checked their profile and who 'liked' them

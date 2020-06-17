@@ -1,3 +1,5 @@
+const mysql = require('mysql');
+
 const validatePassword = (password) => {
 	let strength = 0;
 	let characterGroups = [
@@ -84,7 +86,7 @@ const validateRegistrationData = (user) => {
 const validateMyProfileData = user => {
 	// Form is not filled
 	if (!user.email || !user.firstName || !user.lastName || 
-		!user.gender || !user.target
+		!user.gender || !user.target || !user.tags || !user.biography
 	)
 		return false;
 	
@@ -92,6 +94,13 @@ const validateMyProfileData = user => {
 		validateName(user.lastName) && validateGender(user.gender, false) &&
 		validateGender(user.target, true)
 	);
+};
+
+const parseTags = tagsString => {
+	const arr = tagsString.split(/[#\s,]/);
+	const ret = arr.filter(element => element.length);
+	ret.forEach((element, index) => this[index] = mysql.escape(element));
+	return ret;
 };
 
 module.exports = {
@@ -102,5 +111,6 @@ module.exports = {
 	validateUserData: validateUserData,
 	validateRegistrationData,
 	validateMyProfileData,
-	validateGender
+	validateGender,
+	parseTags
 };

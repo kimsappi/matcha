@@ -8,10 +8,10 @@ block content
 		input(type="email", name="email" value=userData.email)
 
 		label(for="firstName") First name
-		input(type="text", name="firstName" userData.first_name)
+		input(type="text", name="firstName" value=userData.first_name)
 
 		label(for="lastName") Last name
-		input(type="text", name="lastName" userData.last_name)
+		input(type="text", name="lastName" value=userData.last_name)
 
 		div I am a...
 		label Man
@@ -26,6 +26,12 @@ block content
 			input(type="radio", name="target", value="6" checked=userData.target_genders == 6)
 		label Women
 			input(type="radio", name="target", value="3" checked=userData.target_genders == 3)
+
+		label(for="biography") Biography
+		textarea(name="biography") #{biography}
+
+		label(for="tags") Interests
+		textarea(name="tags") #{tags}
 
 		input(type="submit", value="Submit")
 

@@ -7,7 +7,8 @@ const pool = mysql.createPool({
 	user: database.user,
 	password: database.password,
 	database: database.database,
-	connectionLimit: 5
+	connectionLimit: 5,
+	multipleStatements: true
 });
 
 pool.on('connection', function(connection) {
