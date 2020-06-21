@@ -25,6 +25,7 @@ const post = (req, res, next) => {
 	const preparedQuery = mysql.format(query, [req.body.username, hashedPassword]);
 
 	pool.query(preparedQuery, (error, results) => {
+		console.error(req.body);
 		// Some kind of DB error
 		if (error) {
 			console.log('error',error);
