@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS users (
 	photos VARCHAR(512) DEFAULT NULL,
 	email_confirmation_string VARCHAR(64),
 	forgot_password_string VARCHAR(64) DEFAULT NULL,
-	longtitude FLOAT DEFAULT NULL,
+	longitude FLOAT DEFAULT NULL,
 	latitude FLOAT DEFAULT NULL,
 	last_login DATETIME DEFAULT NULL
 );

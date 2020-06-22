@@ -2,6 +2,7 @@ const mysql = require('mysql');
 const pool = require('../modules/dbConnect');
 const hashPassword = require('../modules/hash');
 const mysqlDatetime = require('../modules/mysqlDatetime');
+const getLoginCoordinates = require('../modules/getLoginCoordinates');
 
 const get = (req, res, next) => {
 	// User is already logged in
@@ -33,6 +34,8 @@ const post = (req, res, next) => {
 		}
 		// Login successful
 		else if (results && !results[0].email_confirmation_string && !results[0].forgot_password_string) {
+			const loginCoordinates = getLoginCoordinates(req, results[0]);
+
 			req.session.user = {
 				id: results[0].id,
 				username: results[0].username
