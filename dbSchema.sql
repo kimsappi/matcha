@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
 	fame INT DEFAULT NULL,
 	gender INT DEFAULT 0,
 	target_genders INT DEFAULT 6,
-	biography VARCHAR(512) DEFAULT NULL,
+	biography VARCHAR(512) DEFAULT '',
 	photos VARCHAR(512) DEFAULT NULL,
 	email_confirmation_string VARCHAR(64),
 	forgot_password_string VARCHAR(64) DEFAULT NULL,

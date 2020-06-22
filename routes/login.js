@@ -26,21 +26,25 @@ const post = (req, res, next) => {
 	const preparedQuery = mysql.format(query, [req.body.username, hashedPassword]);
 
 	pool.query(preparedQuery, (error, results) => {
-		console.error(req.body);
 		// Some kind of DB error
 		if (error) {
 			console.log('error',error);
 			return res.render('login');
 		}
 		// Login successful
-		else if (results && !results[0].email_confirmation_string && !results[0].forgot_password_string) {
+		else if (results && results[0] && !results[0].email_confirmation_string && !results[0].forgot_password_string) {
+			// Get login coordinates either from req.body or user's IP
 			const loginCoordinates = getLoginCoordinates(req, results[0]);
 
 			req.session.user = {
 				id: results[0].id,
 				username: results[0].username
 			};
-			pool.query(`UPDATE users SET last_login = '${mysqlDatetime(new Date())}' WHERE id = ${results[0].id};`);
+			pool.query(`UPDATE users
+				SET last_login = '${mysqlDatetime(new Date())}',
+					latitude = ${loginCoordinates.latitude},
+					longitude = ${loginCoordinates.longitude}
+				WHERE id = ${results[0].id};`);
 			return res.status(301).redirect('/myProfile');
 		}
 		// Email address is not confirmed

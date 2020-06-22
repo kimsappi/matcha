@@ -1,7 +1,8 @@
 const geoIP = require('geoip-lite');
 
 const validateCoordinate = coordinate => {
-	return typeof coordinate === 'number' && coordinate >= -180 && coordinate <= 180;
+	const coordFloat = parseFloat(coordinate);
+	return !isNaN(coordFloat) && coordFloat >= -180 && coordFloat <= 180;
 };
 
 const getLoginCoordinates = (req, userData) => {
