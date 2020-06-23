@@ -9,6 +9,7 @@ const confirmEmail = require('./confirmEmail');
 const forgotPassword = require('./forgotPassword');
 const resetPassword = require('./resetPassword');
 const myProfile = require('./myProfile');
+const profile = require('./profile');
 
 const router = express.Router();
 
@@ -70,6 +71,15 @@ router.get('/myProfile', (req, res, next) => {
 
 router.post('/myProfile', (req, res, next) => {
 	myProfile.post(req, res, next);
+});
+
+// profile.js
+router.get('/profile/:id', (req, res, next) => {
+	profile.get(req, res, next);
+});
+
+router.post('/profile/:id', (req, res, next) => {
+	profile.post(req, res, next);
 });
 
 module.exports = router;
