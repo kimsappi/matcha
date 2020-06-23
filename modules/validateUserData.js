@@ -1,3 +1,5 @@
+const {validateCoordinate} = require('./getLoginCoordinates');
+
 const mysql = require('mysql');
 
 const validatePassword = (password) => {
@@ -103,6 +105,12 @@ const parseTags = tagsString => {
 	return ret;
 };
 
+const validateCoordinates = coords => {
+	if (!validateCoordinate(coords.latitude) || !validateCoordinate(coords.longitude))
+		return '';
+	return `, latitude = ${coords.latitude}, longitude = ${coords.longitude}`;
+};
+
 module.exports = {
 	validatePassword: validatePassword,
 	validateUsername: validateUsername,
@@ -112,5 +120,6 @@ module.exports = {
 	validateRegistrationData,
 	validateMyProfileData,
 	validateGender,
-	parseTags
+	parseTags,
+	validateCoordinates
 };

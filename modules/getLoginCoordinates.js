@@ -23,4 +23,7 @@ const getLoginCoordinates = (req, userData) => {
 	return {'latitude': lookup.ll[0], 'longitude': lookup.ll[1]};
 };
 
-module.exports = getLoginCoordinates;
+module.exports = {
+	validateCoordinate,
+	getLoginCoordinates
+};

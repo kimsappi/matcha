@@ -33,6 +33,12 @@ block content
 		label(for="tags") Interests
 		textarea(name="tags") #{tags}
 
+		label(for="latitude") Latitude
+		input(type="text", name="latitude", value=userData.latitude)
+
+		label(for="longitude") Longitude
+		input(type="text", name="longitude", value=userData.longitude)
+
 		input(type="submit", value="Submit")
 
 //- label(for="gender") I am a...

@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const pool = require('../modules/dbConnect');
 const hashPassword = require('../modules/hash');
 const mysqlDatetime = require('../modules/mysqlDatetime');
-const getLoginCoordinates = require('../modules/getLoginCoordinates');
+const {getLoginCoordinates} = require('../modules/getLoginCoordinates');
 
 const get = (req, res, next) => {
 	// User is already logged in

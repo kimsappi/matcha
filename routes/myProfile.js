@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 const express = require('express');
 
-const {validateMyProfileData, parseTags} = require('../modules/validateUserData');
+const {validateMyProfileData, parseTags, validateCoordinates} = require('../modules/validateUserData');
 const pool = require('../modules/dbConnect');
 
 const get = (req, res, next) => {
@@ -42,12 +42,16 @@ const post = (req, res, next) => {
 	// Parse tags from string to array
 	const tags = parseTags(req.body.tags);
 
-	console.log(generateTagsQuery(tags, req.session.user.id));
+	// Check if input coordinates are valid and update them if necessary
+	// If input is invalid, updatedCoordinates will be empty
+	const updatedCoordinates = validateCoordinates(req.body);
 	
+	// Query first updates the users table, then flushes all of the user's
+	// tags from the tags table and adds fresh entries to the tags table
 	const query = `
 UPDATE users
 	SET email = ?, first_name = ?, last_name = ?, gender = ?, target_genders = ?,
-		biography = ?
+		biography = ? ${updatedCoordinates}
 	WHERE id = ${req.session.user.id};
 DELETE FROM tags WHERE user = ${req.session.user.id};` + generateTagsQuery(tags, req.session.user.id);
 	const preparedQuery = mysql.format(query,

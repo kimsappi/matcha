@@ -14,7 +14,7 @@ Hive webdev project: dating site
 ## Security
 - [ ] User input must be validated
 - [ ] Site must be secure
-- [ ] No plaintext password storage
+- [x] No plaintext password storage
 - [ ] No JS injection
 - [ ] No uploading unwanted content
 - [ ] No SQL injection
@@ -24,7 +24,7 @@ Hive webdev project: dating site
 - [x] Registration must be confirmed via an emailed unique link
 - [x] Login with **username** and password
 - [x] 'Forgot password'
-- [ ] Ability to log out with 1 click from any page
+- [x] Ability to log out with 1 click from any page
 
 ## Profile features
 - [ ] After logging in, user can provide:
