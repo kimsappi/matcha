@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
 const config = require('./config.json');
-const pool = require('./modules/dbConnect');
+//const pool = require('./modules/dbConnect');
 
 // Routes
 var routes = require('./routes/routes');
@@ -13,6 +13,7 @@ var routes = require('./routes/routes');
 var app = express();
 
 // view engine setup
+app.engine('pug', require('pug').__express);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
