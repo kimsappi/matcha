@@ -45,7 +45,7 @@ const post = (req, res, next) => {
 					latitude = ${loginCoordinates.latitude},
 					longitude = ${loginCoordinates.longitude}
 				WHERE id = ${results[0].id};`);
-			return res.status(301).redirect('/myProfile');
+			return res.status(301).redirect('/myProfile/profile');
 		}
 		// Email address is not confirmed
 		else if (results) {

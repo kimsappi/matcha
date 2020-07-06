@@ -75,3 +75,12 @@ CREATE TABLE IF NOT EXISTS messages (
 -- 	FOREIGN KEY (chat) REFERENCES chats(id),
 -- 	FOREIGN KEY (chatter) REFERENCES users(id)
 -- );
+
+-- Passwords are '123'
+INSERT INTO users (username, `password`, email, first_name, last_name) VALUES
+	('admin1', 'ad9b191cd8d24d4e57710893f9922c11c6aeb8143ec99baf4332f191c6bfba9c', 'admin1@example.com', 'Admin', 'One'),
+	('admin2', 'b0b46aaf9bab6524f15c40e3c82febe1bbad1f5cb87def29023f3303edd709f1', 'admin2@example.com', 'Admin', 'Two');
+
+-- DROP USER 'camagru'@'%';
+-- CREATE USER 'dbuser'@'%' IDENTIFIED WITH mysql_native_password BY '123dbuser';
+-- GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%';

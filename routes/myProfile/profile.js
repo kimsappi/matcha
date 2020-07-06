@@ -1,8 +1,8 @@
 const mysql = require('mysql');
 const express = require('express');
 
-const {validateMyProfileData, parseTags, validateCoordinates} = require('../modules/validateUserData');
-const pool = require('../modules/dbConnect');
+const {validateMyProfileData, parseTags, validateCoordinates} = require('../../modules/validateUserData');
+const pool = require('../../modules/dbConnect');
 
 const get = (req, res, next) => {
 	// User is not logged in
@@ -20,7 +20,7 @@ const get = (req, res, next) => {
 			if (tagsError)
 				return res.status(301).redirect('/');
 
-			return res.render('myProfile', {
+			return res.render('myProfile/profile', {
 				userData: results[0],
 				user: req.session.user,
 				biography: escape(results[0].biography),
@@ -37,7 +37,7 @@ const post = (req, res, next) => {
 
 	// Profile is not filled completely/correctly
 	if (!validateMyProfileData(req.body))
-		return res.status(301).redirect('/myProfile');
+		return res.status(301).redirect('/myProfile/profile');
 
 	// Parse tags from string to array
 	const tags = parseTags(req.body.tags);
@@ -63,9 +63,9 @@ DELETE FROM tags WHERE user = ${req.session.user.id};` + generateTagsQuery(tags,
 
 	pool.query(preparedQuery, (error) => {
 		if (error)
-			return res.status(301).redirect('/myProfile');
+			return res.status(301).redirect('/myProfile/profile');
 		else
-			return res.status(301).redirect('/myProfile');
+			return res.status(301).redirect('/myProfile/profile');
 	});
 };
 

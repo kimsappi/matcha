@@ -8,7 +8,7 @@ const logout = require('./logout');
 const confirmEmail = require('./confirmEmail');
 const forgotPassword = require('./forgotPassword');
 const resetPassword = require('./resetPassword');
-const myProfile = require('./myProfile');
+const myProfile = require('./myProfile/profile');
 const profile = require('./profile');
 
 const router = express.Router();
@@ -65,11 +65,11 @@ router.post('/resetPassword', (req, res, next) => {
 });
 
 // myProfile.js
-router.get('/myProfile', (req, res, next) => {
+router.get('/myProfile/profile', (req, res, next) => {
 	myProfile.get(req, res, next);
 });
 
-router.post('/myProfile', (req, res, next) => {
+router.post('/myProfile/profile', (req, res, next) => {
 	myProfile.post(req, res, next);
 });
 
