@@ -1,6 +1,6 @@
 const mysql = require('mysql');
+const fs = require('fs');
 
-const {validateRegistrationData} = require('../../modules/validateUserData');
 const pool = require('../../modules/dbConnect');
 
 const get = (req, res, next) => {
@@ -36,13 +36,14 @@ const post = (req, res, next) => {
 			console.log('error');
 		}
 		else
-			imageCount = result.count;
+			imageCount = result[0].count;
 		
-		for (i = 0; i + imageCount < 5; ++i) {
-			if (!req.files[i] || !req.files[i].mimetype.startsWith('image/'))
+		// Loop through images, insert them to database, and rename
+		for (let i = 0; i + imageCount < 5; ++i) {
+			if (!req.files || !req.files[i] || !req.files[i].mimetype.startsWith('image/'))
 				break;
 			let extension = req.files[i].mimetype.split('/')[1];
-			if (!/^[a-zA-Z]+/.test(extensions))
+			if (!/^[a-zA-Z]+/.test(extension))
 				break;
 			let insertQuery = 'INSERT INTO user_photos (`user`, `extension`) VALUES (?, ?);';
 			let preparedQuery = mysql.format(insertQuery, [req.session.user.id, extension]);
@@ -52,10 +53,11 @@ const post = (req, res, next) => {
 					//todo
 					console.log('error inserting picture');
 				}
-				else
+				else {
 					filename = result.insertId;
+					fs.renameSync(req.files[i].path, `public/img/userPhotos/${filename}.${extension}`);
+				}
 			});
-			fs.rename(req.files[i].filename, 'img/userPhotos/' + filename + '.' + extension);
 		}
 	});
 };

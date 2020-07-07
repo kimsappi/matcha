@@ -1,3 +1,6 @@
+tmp/
+public/img/userPhotos/
+
 # Email details and other secrets
 mailConfig.json
 
