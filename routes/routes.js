@@ -1,4 +1,6 @@
 const express = require('express');
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
 
 // Routes
 const index = require('./index');
@@ -81,7 +83,7 @@ router.get('/myProfile/pics', (req, res, next) => {
 	myPics.get(req, res, next);
 });
 
-router.post('/myProfile/pics', (req, res, next) => {
+router.post('/myProfile/pics', upload.array('photos', 5), (req, res, next) => {
 	myPics.post(req, res, next);
 });
 
