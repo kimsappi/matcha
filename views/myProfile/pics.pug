@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+	h1 My photos
+	form(method='post')
+		label(for='photo') Upload a photo
+		input(type='file' name='photo')
+	
+	if results
+		div
+			each pic in results
+				div= results.id + 'id'

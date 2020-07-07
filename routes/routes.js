@@ -8,7 +8,10 @@ const logout = require('./logout');
 const confirmEmail = require('./confirmEmail');
 const forgotPassword = require('./forgotPassword');
 const resetPassword = require('./resetPassword');
+
 const myProfile = require('./myProfile/profile');
+const myPics = require('./myProfile/pics');
+
 const profile = require('./profile');
 
 const router = express.Router();
@@ -64,13 +67,22 @@ router.post('/resetPassword', (req, res, next) => {
 	resetPassword.post(req, res, next);
 });
 
-// myProfile.js
+// myProfile/profile.js
 router.get('/myProfile/profile', (req, res, next) => {
 	myProfile.get(req, res, next);
 });
 
 router.post('/myProfile/profile', (req, res, next) => {
 	myProfile.post(req, res, next);
+});
+
+// myProfile/pics.js
+router.get('/myProfile/pics', (req, res, next) => {
+	myPics.get(req, res, next);
+});
+
+router.post('/myProfile/pics', (req, res, next) => {
+	myPics.post(req, res, next);
 });
 
 // profile.js

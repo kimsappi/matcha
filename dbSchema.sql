@@ -16,12 +16,18 @@ CREATE TABLE IF NOT EXISTS users (
 	gender INT DEFAULT 0,
 	target_genders INT DEFAULT 6,
 	biography VARCHAR(512) DEFAULT '',
-	photos VARCHAR(512) DEFAULT NULL,
 	email_confirmation_string VARCHAR(64),
 	forgot_password_string VARCHAR(64) DEFAULT NULL,
 	longitude FLOAT DEFAULT NULL,
 	latitude FLOAT DEFAULT NULL,
-	last_login DATETIME DEFAULT NULL
+	last_login DATETIME DEFAULT NULL,
+	main_pic INT UNSIGNED DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_photos (
+	`id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`user` INT UNSIGNED,
+	FOREIGN KEY (`user`) REFERENCES users (id)
 );
 
 CREATE TABLE IF NOT EXISTS tags (
@@ -81,6 +87,6 @@ INSERT INTO users (username, `password`, email, first_name, last_name) VALUES
 	('admin1', 'ad9b191cd8d24d4e57710893f9922c11c6aeb8143ec99baf4332f191c6bfba9c', 'admin1@example.com', 'Admin', 'One'),
 	('admin2', 'b0b46aaf9bab6524f15c40e3c82febe1bbad1f5cb87def29023f3303edd709f1', 'admin2@example.com', 'Admin', 'Two');
 
--- DROP USER 'camagru'@'%';
--- CREATE USER 'dbuser'@'%' IDENTIFIED WITH mysql_native_password BY '123dbuser';
--- GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%';
+DROP USER 'dbuser'@'%';
+CREATE USER 'dbuser'@'%' IDENTIFIED WITH mysql_native_password BY '123dbuser';
+GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%';
