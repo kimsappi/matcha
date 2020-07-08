@@ -1,7 +1,7 @@
 const mysql = require('mysql');
-const {validateRegistrationData} = require('../modules/validateUserData');
+
 const pool = require('../modules/dbConnect');
-const hashPassword = require('../modules/hash');
+const getGenderEmoji = require('../modules/getGenderEmoji');
 
 const get = (req, res, next) => {
 	const userId = req.params.id;
@@ -22,6 +22,8 @@ const get = (req, res, next) => {
 			{
 				user: req.session.user,
 				profileData: results[0],
+				lookingFor: getGenderEmoji(results[0].target_genders),
+				gender: getGenderEmoji(results[0].gender),
 				title: `${results[0].first_name} ${results[0].last_name[0]}.`
 			}
 		);

@@ -1,4 +1,6 @@
 extends layout
 
 block content
-	div #{id}
+	h2!= profileData.first_name + ' ' + profileData.last_name[0] + '., ' + profileData.age + ' ' + gender
+	div!= 'Interested in ' + lookingFor
+	div= profileData.id
