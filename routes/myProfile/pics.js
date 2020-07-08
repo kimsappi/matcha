@@ -21,7 +21,7 @@ const get = (req, res, next) => {
 		}
 		else {
 			console.log(results[0]);
-			res.render('myProfile/pics', {results: results});
+			res.render('myProfile/pics', {'results': results});
 		}
 	});
 };
@@ -45,7 +45,7 @@ const post = (req, res, next) => {
 			let extension = req.files[i].mimetype.split('/')[1];
 			if (!/^[a-zA-Z]+/.test(extension))
 				break;
-			let insertQuery = 'INSERT INTO user_photos (`user`, `extension`) VALUES (?, ?);';
+			const insertQuery = 'INSERT INTO user_photos (`user`, `extension`) VALUES (?, ?);';
 			let preparedQuery = mysql.format(insertQuery, [req.session.user.id, extension]);
 			let filename = '';
 			pool.query(preparedQuery, (error, result) => {
@@ -56,10 +56,17 @@ const post = (req, res, next) => {
 				else {
 					filename = result.insertId;
 					fs.renameSync(req.files[i].path, `public/img/userPhotos/${filename}.${extension}`);
+					
+					// User uploads their first image, make that default
+					if (!imageCount) {
+						const defaultQuery = `UPDATE users SET main_pic = ${filename} WHERE id = ${req.session.user.id};`;
+						pool.query(defaultQuery);
+					}
 				}
 			});
 		}
 	});
+	return res.redirect('back');
 };
 
 module.exports = {

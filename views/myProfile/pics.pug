@@ -10,4 +10,5 @@ block content
 	if results
 		div
 			each pic in results
-				div= results.id + 'id'
+				div
+					img(src='/img/userPhotos/' + pic.id + '.' + pic.extension)

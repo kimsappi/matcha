@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -44,5 +46,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// Creating required directories
+if (!fs.existsSync('public/img/userPhotos'))
+  fs.mkdirSync('public/img/userPhotos');
 
 module.exports = app;
