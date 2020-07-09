@@ -10,6 +10,7 @@ const logout = require('./logout');
 const confirmEmail = require('./confirmEmail');
 const forgotPassword = require('./forgotPassword');
 const resetPassword = require('./resetPassword');
+const search = require('./search');
 
 const myProfile = require('./myProfile/profile');
 const myPics = require('./myProfile/pics');
@@ -94,6 +95,15 @@ router.get('/profile/:id', (req, res, next) => {
 
 router.post('/profile/:id', (req, res, next) => {
 	profile.post(req, res, next);
+});
+
+// profile.js
+router.get('/search', (req, res, next) => {
+	search.get(req, res, next);
+});
+
+router.post('/search', (req, res, next) => {
+	search.post(req, res, next);
 });
 
 module.exports = router;

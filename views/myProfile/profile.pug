@@ -15,17 +15,17 @@ block content
 
 		div I am a...
 		label Man
-			input(type="radio", name="gender", value="2" checked=userData.gender == 2)
+			input(type="radio", name="gender", value="m" checked=userData.gender == 'm')
 		label Woman
-			input(type="radio", name="gender", value="3" checked=userData.gender == 3)
+			input(type="radio", name="gender", value="f" checked=userData.gender == 'f')
 		
 		div Looking for
 		label Men
-			input(type="radio", name="target", value="2" checked=userData.target_genders == 2)
+			input(type="radio", name="target", value="m" checked=userData.target_genders == 'm')
 		label Both
-			input(type="radio", name="target", value="6" checked=userData.target_genders == 6)
+			input(type="radio", name="target", value="fm" checked=userData.target_genders.length == 2)
 		label Women
-			input(type="radio", name="target", value="3" checked=userData.target_genders == 3)
+			input(type="radio", name="target", value="f" checked=userData.target_genders == 'f')
 
 		label(for="biography") Biography
 		textarea(name="biography") #{biography}

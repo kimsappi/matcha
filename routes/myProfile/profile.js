@@ -35,9 +35,11 @@ const post = (req, res, next) => {
 	if (!req.session.user)
 		return res.status(301).redirect('/login');
 
+	//console.log(req.body);
 	// Profile is not filled completely/correctly
 	if (!validateMyProfileData(req.body))
 		return res.status(301).redirect('/myProfile/profile');
+	//console.log('passed validation');
 
 	// Parse tags from string to array
 	const tags = parseTags(req.body.tags);
@@ -45,6 +47,7 @@ const post = (req, res, next) => {
 	// Check if input coordinates are valid and update them if necessary
 	// If input is invalid, updatedCoordinates will be empty
 	const updatedCoordinates = validateCoordinates(req.body);
+	//console.log('passed coords');
 	
 	// Query first updates the users table, then flushes all of the user's
 	// tags from the tags table and adds fresh entries to the tags table
@@ -65,6 +68,7 @@ DELETE FROM tags WHERE user = ${req.session.user.id};` + generateTagsQuery(tags,
 		if (error)
 			return res.status(301).redirect('/myProfile/profile');
 		else
+			console.log('query success');
 			return res.status(301).redirect('/myProfile/profile');
 	});
 };

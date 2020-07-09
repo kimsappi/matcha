@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 
 const pool = require('../modules/dbConnect');
-const getGenderEmoji = require('../modules/getGenderEmoji');
+const {getGenderEmoji} = require('../modules/gender.js');
 
 const get = (req, res, next) => {
 	const userId = req.params.id;

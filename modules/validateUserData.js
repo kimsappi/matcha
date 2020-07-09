@@ -33,8 +33,7 @@ const validateName = (name) => {
 };
 
 const validateGender = (gender, target = false) => {
-	// Non-strict comparison intended because they will often be strings
-	return gender == 2 || gender == 3 || (target && gender == 6);
+	return gender === 'm' || gender === 'f' || (target && gender === 'mf') || (target && gender === 'fm');
 };
 
 const validateUserData = (user) => {
