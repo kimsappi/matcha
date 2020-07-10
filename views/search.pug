@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	h1 Suggested profiles
+	div
+		if profiles
+			each profile in profiles
+				a(href=`/profile/${profile.id}`)
+					div
+						div= profile.last_name

@@ -12,3 +12,11 @@ header
 				a(href='/login') Log in
 			div
 				a(href='/register') Register
+	nav
+		ul
+			li
+				a(href='/') Home
+			if user
+				li
+					a(href='/search') Find matches
+
