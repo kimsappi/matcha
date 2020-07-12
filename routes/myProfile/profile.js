@@ -35,7 +35,7 @@ const post = (req, res, next) => {
 	if (!req.session.user)
 		return res.status(301).redirect('/login');
 
-	//console.log(req.body);
+	console.log(req.body);
 	// Profile is not filled completely/correctly
 	if (!validateMyProfileData(req.body))
 		return res.status(301).redirect('/myProfile/profile');
@@ -54,15 +54,17 @@ const post = (req, res, next) => {
 	const query = `
 UPDATE users
 	SET email = ?, first_name = ?, last_name = ?, gender = ?, target_genders = ?,
-		biography = ? ${updatedCoordinates}
+		biography = ? ${updatedCoordinates}, age = ?
 	WHERE id = ${req.session.user.id};
 DELETE FROM tags WHERE user = ${req.session.user.id};` + generateTagsQuery(tags, req.session.user.id);
 	const preparedQuery = mysql.format(query,
 		[
 			req.body.email, req.body.firstName, req.body.lastName,
-			req.body.gender, req.body.target, req.body.biography
+			req.body.gender, req.body.target, req.body.biography,
+			parseInt(req.body.age)
 		]
 	);
+	//console.log(query);
 
 	pool.query(preparedQuery, (error) => {
 		if (error)

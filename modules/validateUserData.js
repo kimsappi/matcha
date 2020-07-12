@@ -2,6 +2,11 @@ const {validateCoordinate} = require('./getLoginCoordinates');
 
 const mysql = require('mysql');
 
+const validateAge = age => {
+	console.log(Number.isInteger(parseInt(age)));
+	return Number.isInteger(parseInt(age)) && parseInt(age) > 15 && parseInt(age) < 121;
+};
+
 const validatePassword = (password) => {
 	let strength = 0;
 	let characterGroups = [
@@ -86,14 +91,14 @@ const validateRegistrationData = (user) => {
 
 const validateMyProfileData = user => {
 	// Form is not filled
-	if (!user.email || !user.firstName || !user.lastName || 
+	if (!user.email || !user.firstName || !user.lastName || !user.age ||
 		!user.gender || !user.target || !user.tags || !user.biography
 	)
 		return false;
 	
 	return (validateEmail(user.email) && validateName(user.firstName) &&
 		validateName(user.lastName) && validateGender(user.gender, false) &&
-		validateGender(user.target, true)
+		validateGender(user.target, true) && validateAge(user.age)
 	);
 };
 
