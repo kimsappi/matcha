@@ -3,4 +3,14 @@ extends layout
 block content
 	h2!= profileData.first_name + ' ' + profileData.last_name[0] + '., ' + profileData.age + ' ' + gender
 	div!= 'Interested in ' + lookingFor
+	if likeButton === 'noLikes'
+		button(id='likeButton') Like
+	else if likebutton === 'youLike'
+		button(id='likeButton') Unlike
+	else if likebutton === 'theyLike'
+		button(id='likeButton') Connect!
+	else if likebutton === 'mutualLike'
+		button(id='likeButton') Disconnect
 	div= profileData.id
+
+	script(src='/scripts/likeButton.js')
