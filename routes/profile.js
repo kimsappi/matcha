@@ -4,6 +4,8 @@ const pool = require('../modules/dbConnect');
 const {getGenderEmoji} = require('../modules/gender.js');
 const mysqlDatetime = require('../modules/mysqlDatetime');
 
+const config = require('../config.json');
+
 const getLikeButtonStatus = async (user, other) => {
 	// User is looking at their own profile
 	if (user.id === other.id)
@@ -15,16 +17,16 @@ const getLikeButtonStatus = async (user, other) => {
 		pool.query(query, (error, results) => {
 			// No likes either way
 			if (error || !results.length)
-				resolve('noLikes');
+				resolve(config.likeButtonStrings['noLikes']);
 			// Both like each other
 			else if (results.length === 2)
-				resolve('mutualLike');
+				resolve(config.likeButtonStrings['mutualLike']);
 			// You like them
 			else if (results[0].liker === user.id)
-				resolve('youLike');
+				resolve(config.likeButtonStrings['youLike']);
 			// They like you
 			else
-				resolve('theyLike');
+				resolve(config.likeButtonStrings['theyLike']);
 		})
 	});
 	return ret;
@@ -71,11 +73,11 @@ const get = async (req, res, next) => {
 	});
 };
 
-// const post = (req, res, next) => {
-	
-// };
+const post = (req, res, next) => {
+	console.log(req.body);
+};
 
 module.exports = {
 	get,
-	//post
+	post
 };
