@@ -1,5 +1,6 @@
 tmp/
 public/img/userPhotos/
+.DS_Store
 
 # Email details and other secrets
 mailConfig.json

@@ -21,7 +21,11 @@ const get = (req, res, next) => {
 		}
 		else {
 			console.log(results[0]);
-			res.render('myProfile/pics', {'results': results});
+			res.render('myProfile/pics', {
+				'results': results,
+				'title': 'Your photos',
+				'user': req.session.user
+			});
 		}
 	});
 };
